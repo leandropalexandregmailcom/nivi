@@ -2,10 +2,12 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\Auth;
 use App\Http\Controllers\{
-    UserController,
-    AuthController,
     Auth\RegisterController,
+    UserController,
+    Api\LoginController,
     Api\StoreController,
     Api\ProductController,
     Api\AddressController,
@@ -14,18 +16,21 @@ use App\Http\Controllers\{
     Api\PermissionController,
     Api\ProfileController,
     Api\CartController,
-    Api\OrderController
+    Api\OrderController,
 };
 
 Route::group(['middleware' => ['guest:api']], function()
 {
-    Route::post('user/create', 'UserController@create');
-    Route::post('login', 'LoginController@login');
+    Route::get('/', [function() {
+        echo 'teste';
+    }]);
+
+    Route::post('user/create', [RegisterController::class, 'create']);
+    Route::post('login', [LoginController::class, 'login']);
 });
 
 Route::group(['middleware' => 'auth:api'], function() {
 
-    Route::apiResource('user', UserController::class);
     Route::apiResource('client', ClientController::class);
     Route::apiResource('store', StoreController::class);
     Route::apiResource('product', ProductController::class);

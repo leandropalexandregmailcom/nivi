@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,14 +23,7 @@ class LoginController extends Controller
     }
 
     public function logout(Request $request) {
-        if($request->user()->token()->revoke()) {
-            return response()->json([
-                'message' => 'logout successfully',
-            ], 200);
-        }
-
-        return response()->json([
-            'message' => 'could not log out',
-        ], 404);
+        Auth::logout();
+        return view('home');
     }
 }

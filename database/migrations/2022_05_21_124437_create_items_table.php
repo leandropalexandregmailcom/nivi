@@ -15,9 +15,9 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->references('id')->on('users');
-            $table->foreignId('product_id')->references('id')->on('products');
-            $table->foreignId('order_id')->references('id')->on('orders');
+            $table->bigInteger('user_id');
+            $table->bigInteger('product_id');
+            $table->bigInteger('order_id');
             $table->timestamps();
         });
     }

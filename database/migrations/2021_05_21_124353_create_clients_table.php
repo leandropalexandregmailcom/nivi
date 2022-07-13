@@ -15,7 +15,7 @@ class CreateClientsTable extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->references('id')->on('users');
+            $table->bigInteger('user_id')->nullable();
             $table->date('bith_day')->nullable();
             $table->string('cpf')->nullable();
             $table->string('rg')->nullable();

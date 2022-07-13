@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->text('description');
             $table->unsignedInteger('category_id');
 
-            $table->foreignId('store_id')->references('id')->on('stores');
+            $table->bigInteger('store_id');
             $table->timestamps();
         });
     }

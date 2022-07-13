@@ -16,7 +16,7 @@ class CreateProfilesTable extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('permission_id')->references('id')->on('permissions');
+            $table->integer('permission_id')->nullable();
             $table->timestamps();
         });
     }

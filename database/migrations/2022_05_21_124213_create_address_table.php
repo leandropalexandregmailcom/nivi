@@ -26,7 +26,7 @@ class CreateAddressTable extends Migration
             $table->string('state');
             $table->integer('state_id')->nullable();
             $table->integer('data_origin')->nullable();
-            $table->foreignId('user_id')->references('id')->on('users');
+            $table->bigInteger('user_id')->nullable();
             $table->timestamps();
         });
     }

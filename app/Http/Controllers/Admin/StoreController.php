@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Store;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class StoreController extends Controller
 {
@@ -14,17 +15,12 @@ class StoreController extends Controller
      */
     public function index()
     {
-        //
+        return view('store.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -35,7 +31,16 @@ class StoreController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Store::create([
+            "name"          => $request->name,
+            "description"   => $request->description,
+            "about_us"      => $request->about_us,
+            "user_id"       => $request->user_id,
+            "url"           => $request->url,
+            "logo"          => $request->logo
+        ]);
+
+        return view('store.index');
     }
 
     /**
@@ -55,9 +60,12 @@ class StoreController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        //
+        return view('store.index',[Store::where([
+            'user_id' => $request->user_id,
+            'id'      => $request->id
+        ])->first()]);
     }
 
     /**
@@ -69,7 +77,23 @@ class StoreController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Store::where([
+            'user_id' => $request->user_id,
+            'id'      => $request->id
+        ])->update([
+            "name"          => $request->name,
+            "description"   => $request->description,
+            "about_us"      => $request->about_us,
+            "user_id"       => $request->user_id,
+            "url"           => $request->url,
+            "logo"          => $request->logo
+        ]);
+
+        return response()->json([
+            'message' => 'updated',
+            'status'  => 200,
+            'success' => true
+        ]);
     }
 
     /**
@@ -78,8 +102,17 @@ class StoreController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        Store::where([
+            'user_id' => $request->user_id,
+            'id'      => $request->id
+        ])->delete();
+
+        return response()->json([
+            'message' => 'deleted',
+            'status'  => 200,
+            'success' => true
+        ]);
     }
 }
